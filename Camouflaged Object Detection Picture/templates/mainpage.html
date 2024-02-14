@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Form</title>
+    <style>
+         body {
+            background: url("images/bg.jpg");
+            background-blend-mode: screen;
+            background-size: cover;
+            background-color: rgb(146, 197, 178);
+        } 
+
+        li>a:hover {
+            background-color: #babbbb !important;
+            color: #ffffff !important;
+        }
+
+        .form-control:focus {
+            background-color: #f5f7f8 !important;
+            border-color: rgb(205, 228, 221);
+            box-shadow: 0px 1px 1px rgba(176, 201, 193, 0.9) inset, 0px 0px 8px rgba(220, 250, 230, 0.9);
+        } 
+        .btn:focus {
+            border-color: rgb(112, 128, 123) !important;
+            box-shadow: 0px 1px 1px rgba(117, 128, 124, 0.9) inset, 0px 0px 8px rgba(135, 150, 140, 0.9) !important;
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <div class="d-flex flex-column justify-content-center" style="background: rgb(205 221 233);">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="twoform">Object Detector</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto fw-normal">
+                        <li class="nav-item">
+                            <a class="nav-link index" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link register" href="login">Sign out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav> 
+
+        <div class="container">
+           
+<form id="upload-file" method="post" enctype="multipart/form-data">
+            <div class="row justify-content-center">
+
+                <div class="col-md-6 md-mb-0 mb-2 text-center">
+                    <label class="form-control border-0 bg-transparent">Upload Image :</label>
+                </div>
+
+                <div class="col-md-6">
+                    <input type="file" class="form-control" id="first_image" name="first_image"
+                        onchange="previewFile(this);" />
+                </div>
+                <div class="text-center my-1">
+                    <img src="" style="height:300px;" class="rounded mx-auto mt-2 mb-2" alt="" id="previewImg"
+                        style="display:none;" />
+                </div>
+				
+
+					<input type="button" value="Upload Image" onclick="uploadimg();" class="btn btn-success" style="height:100px;font-size:20px;" />
+            </div>
+			
+			<div id="result" style="display:none;">
+			
+			<div class="col-lg-12 col-md-12 col-xs-12">
+			
+				<div class="col-md-4" style="float:left;">
+
+						<label class="form-control border-0 bg-transparent" style="font-size:20px;font-weight:bolder;">Grayscale :</label>
+					<div class="col-md-12 text-center">
+						<img src="1.jpg" class="col-md-10"  alt="" id="previewImg2"
+							style="display:none;" />
+					</div>
+					<input type="button" value="Generate Binary Image" onclick="genBin()" />
+
+				</div>
+				<div class="col-md-4" style="float:left;">
+
+						<label class="form-control border-0 bg-transparent"  style="font-size:20px;font-weight:bolder;">Binarization :</label>
+					<div class="col-md-12 text-center">
+						<img src="1.jpg"  class="col-md-10" alt="" id="previewImg3"
+							style="display:none;" />
+					</div>
+					<input type="button" value="Generate Threshold Image" onclick="genThresh()" />
+
+				</div>
+				<div class="col-md-4" style="float:left;">
+
+						<label class="form-control border-0 bg-transparent"  style="font-size:20px;font-weight:bolder;">Threshold :</label>
+					<div class="col-md-12 text-center">
+						<img src="1.jpg" class="col-md-10" alt="" id="previewImg4"
+							style="display:none;" />
+					</div>
+					<input type="button" value="Generate Masked Image" onclick="genMask()" />
+
+				</div>
+			</div>
+			<br/>
+            <hr>
+			<!--
+			<div id="result1" style="display:none;">
+			<div class="col-md-12">
+
+						<label class="form-control border-0 bg-transparent"  style="font-size:20px;font-weight:bolder;">Mask Detected :</label>
+					<div class="col-md-12 text-center">
+						<img src="1.jpg" class="col-md-10" style="height:300px;" alt="" id="previewImg5"
+							style="display:none;" />
+					</div>
+
+				</div>
+            <div class="row justify-content-center col-md-12">
+
+                <div class="col-6 md-mb-0 mb-2 text-center">
+                    <label class="form-control border-0 bg-transparent">Tumour Detected :</label>
+                </div>
+                <div class="col-6 md-mb-0 mb-2 text-center">
+                    <label class="form-control border-0 bg-transparent" id="diseaseval"></label>
+                </div>
+
+            </div>
+            <div class="row justify-content-center">
+
+                <div class="col-6 md-mb-0 mb-2 text-center">
+                    <label class="form-control border-0 bg-transparent">Accuracy :</label>
+                </div>
+                <div class="col-6 md-mb-0 mb-2 text-center">
+                    <label class="form-control border-0 bg-transparent" id="accval"></label>
+                </div>
+
+            </div>
+			</div>
+			-->
+            <hr>
+			</div>
+</form>
+            <!-- <div class="my-2"></div> -->
+            <!-- <div class="wrapper flex-grow-1"></div>
+<footer class="bg-light fw-normal text-secondary text-center shadow">© <script>document.write(new Date().getFullYear());</script> Footer
+</footer> -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script>
+
+        function previewFile(input) {
+            // debugger;
+            var file = $("#first_image").get(0).files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function () {
+                    $("#previewImg").attr("src", reader.result);
+                    $("#previewImg").addClass("img-thumbnail");
+                    $("#previewImg").show();
+                    /*$("#previewImg2").attr("src", reader.result);
+                    $("#previewImg2").addClass("img-thumbnail");
+                    $("#previewImg2").show();
+                    $("#previewImg3").attr("src", reader.result);
+                    $("#previewImg3").addClass("img-thumbnail");
+                    $("#previewImg3").show();
+                    $("#previewImg4").attr("src", reader.result);
+                    $("#previewImg4").addClass("img-thumbnail");
+                    $("#previewImg4").show();*/
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+		
+		function uploadimg()
+		{
+			debugger;
+		var form_data = new FormData($('#upload-file')[0]);
+        $.ajax({
+            type: 'POST',
+            url: '/uploadajax',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                processor(data)
+            },
+        });
+		}
+		
+		function processor(data)
+		{
+			debugger;
+			$("#result").show();			
+			var res = data.substring(1, data.length-1);
+			res = res.split(",");
+			$("#previewImg2").attr("src", "./static/Grayscale/"+res[1]);
+			$("#previewImg2").addClass("img-thumbnail");
+			$("#previewImg2").show();
+			$("#previewImg3").attr("src",  "./static/Binary/"+res[1]);
+			$("#previewImg3").addClass("img-thumbnail");
+			$("#previewImg4").attr("src",  "./static/Threshold/"+res[1]);
+			$("#previewImg4").addClass("img-thumbnail");
+			$("#previewImg5").attr("src",  "./static/Mask/mask.jpg");
+			$("#previewImg5").addClass("img-thumbnail");
+			$("#diseaseval").html(res[0]);
+			$("#accval").html(res[2]+"%");
+			
+			$("#result1").hide();
+			
+
+		}
+		
+		function genBin()		{
+			
+			$("#previewImg3").show();
+			
+
+		}
+		
+		function genThresh()		{
+			
+			$("#previewImg4").show();
+			
+
+		}
+		
+		function genMask()		{
+			
+			$("#previewImg5").show();
+			
+			$("#result1").show();
+
+		}
+       
+       
+    </script>
+</body>
+
+</html>
